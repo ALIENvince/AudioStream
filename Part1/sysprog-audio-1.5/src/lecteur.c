@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <strings.h>
-#include "audio.h"
+#include "../include/audio.h"
 
 int main() {
 
