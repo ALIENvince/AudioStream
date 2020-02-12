@@ -1,6 +1,14 @@
-OPT = -g -Wall -I./include
+OPT=-g -Wall -I./include
+OBJ= obj/lecteur.o obj/audio.o
 
-bin/lecteur: obj/lecteur.o obj/audio.o
+lecteur: $(OBJ)
 	$(CC) -o $@ $^
-obj/audio.o: include/audio.h
-	$(CC) -o $@ -c $^ $(OPT)
+
+obj/lecteur.o: src/lecteur.c
+	$(CC) -o $@ -c $< $(OPT)
+
+obj/audio.o: src/audio.c include/audio.h
+	$(CC) -o $@ -c $< $(OPT)
+clean:
+	rm -rf obj/*.o
+	rm ./lecteur

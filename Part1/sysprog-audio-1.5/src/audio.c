@@ -26,7 +26,7 @@
 
 #include <stdint.h>
 #include <sys/soundcard.h>
-#include "audio.h"
+#include "../include/audio.h"
 
 /* Definitions for the WAVE format */
 
