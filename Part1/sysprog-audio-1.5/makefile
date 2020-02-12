@@ -1,4 +1,6 @@
-lecteur: lecteur.o audio.o
+OPT = -g -Wall -I./include
+
+bin/lecteur: obj/lecteur.o obj/audio.o
 	$(CC) -o $@ $^
-audio.o:  audio.h
-	$(CC) -o $@ -c $^
+obj/audio.o: include/audio.h
+	$(CC) -o $@ -c $^ $(OPT)
