@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <strings.h>
+#include <string.h>
 #include "../include/audio.h"
 
 int main(int argc, char * argv []) {
@@ -46,16 +47,30 @@ int main(int argc, char * argv []) {
     //ssize_t write_value;
 
     char buffer[s_size];
+    int count = 0;
+    //threshold pour avoir 50 barres a la fin de la piste
+    int threshold = data_size / 200 / s_size / 8;
+    char playbar[256] = "";
 
     do
     {
 	read_value = read(file_fd, buffer,s_size);
 	write(device_fd, buffer, s_size);
+
+
+	if(count >= threshold) {
+	    //strcat(playbar, "|");
+	    //printf("%c[2K\r", 27);
+	    //printf("%s", playbar);
+	    count = 0;
+	}
+	else count++;
     }
     while( read_value != 0 );
 
-	close(file_fd);
-	close(device_fd);
+    close(file_fd);
+    close(device_fd);
+
     return 0;
 
 }

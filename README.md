@@ -13,8 +13,8 @@ Question 2: Que se passe-t-il si on declare a la sortie audio que le fichier
 est mono ?
 Le son est joue 2 fois plus lentement.
 
-Question 3: Le son est sature et inaudible. On obtient un effet du genre bit
-crushing
+Question 3: Le son est sature et inaudible. On lit des samples de 8 bits
+encodes sur 16 bits.
 
 
 
