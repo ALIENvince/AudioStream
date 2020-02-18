@@ -113,7 +113,7 @@ int aud_writeinit (int sample_rate, int sample_size, int channels)
     close(audio_fd);
     return -1;	
   } 
-	
+
   if ((error = ioctl (audio_fd, SNDCTL_DSP_SAMPLESIZE, &sample_size)) != 0) {
     perror ("setparams : bitwidth ") ;
     close(audio_fd);
