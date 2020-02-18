@@ -21,7 +21,12 @@ int main(int argc, char * argv []) {
     }
 
     /* Modification des valeurs pour les filtres */
-
+    //s_rate = s_rate*2;
+    //s_rate = s_rate/2;
+    //
+    //channel = 1;
+    //
+    s_size = 8;
     /*-------------------------------------------*/
 
 
