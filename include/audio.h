@@ -21,7 +21,7 @@
  *
  * @return 0 on success, <0 on failure
  */
-int aud_readinit (char *filename, int *sample_rate, int*sample_size, int* channels );
+int aud_readinit (char *filename, int *sample_rate, int*sample_size, int* channels , int *data_len);
 
 /** write an uncompressed PCM stream to the speaker
  *

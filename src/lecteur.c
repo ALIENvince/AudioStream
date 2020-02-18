@@ -11,9 +11,12 @@ int main(int argc, char * argv []) {
     int s_rate;	
     int s_size;
     int channel;
+    int data_size;
 
     /* Création du descripteur de fichier de lecture*/
-    int file_fd = aud_readinit(track,&s_rate,&s_size,&channel);
+    int file_fd = aud_readinit(track,&s_rate,&s_size,&channel,&data_size);
+
+    printf("%d", data_size);
 
     if(file_fd == -1 ) {
 	fprintf(stderr,"Can't open the file");
@@ -26,7 +29,7 @@ int main(int argc, char * argv []) {
     //
     //channel = 1;
     //
-    s_size = 8;
+    //s_size = 8;
     /*-------------------------------------------*/
 
 

@@ -15,3 +15,11 @@ Le son est joue 2 fois plus lentement.
 
 Question 3: Le son est sature et inaudible. On obtient un effet du genre bit
 crushing
+
+
+
+
+IMPORTANT
+
+Le fichier audio.c a ete modifie : ajout de data_len pour recuperer la taille
+du fichier audio

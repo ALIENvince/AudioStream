@@ -52,7 +52,7 @@ typedef struct _waveheader {
 } WaveHeader;
 
 int aud_readinit (char *filename, int *sample_rate, 
-		  int *sample_size, int *channels ) 
+		  int *sample_size, int *channels , int *data_len) 
 {
   /* Sets up a descriptor to read from a wave (RIFF). 
    * Returns file descriptor if successful*/
@@ -85,6 +85,7 @@ int aud_readinit (char *filename, int *sample_rate,
   *sample_rate = (unsigned int) swap_long(wh.sample_fq);
   *sample_size = (unsigned int) swap_short(wh.bit_p_spl);
   *channels = (unsigned int) swap_short(wh.chans);	
+  *data_len = (unsigned int) swap_long(wh.data_length);
 	
   fprintf (stderr, "%s chan=%u, freq=%u bitrate=%u format=%hu\n", 
 	   filename, *channels, *sample_rate, *sample_size, wh.format);
