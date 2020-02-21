@@ -17,9 +17,9 @@ Question 3: Le son est sature et inaudible. On lit des samples de 8 bits
 encodes sur 16 bits.
 
 
-
-
 IMPORTANT
 
 Le fichier audio.c a ete modifie : ajout de data_len pour recuperer la taille
 du fichier audio
+Nous avons essayés d'implementer une bar de chargement lors de la lecture du son (Avec durée du son etc...)
+C'est encore en progres, elle ne marche pas parfaitement
