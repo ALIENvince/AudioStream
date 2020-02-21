@@ -15,25 +15,25 @@ int print_playbar(int* sample_count, int s_rate, int s_size, int data_len);
  * end time
  * progress bar
  */
-int print_playbar(int* sample_count, int s_rate, int s_size, int data_len) {
+int print_playbar(int* sample_count, int s_rate, int s_size, int samplecount) {
     int sec = 0;
     int min = 0;
-    int progress = 0;
-    int max_sample = data_len / s_size;
+    //int progress = 0;
 
-sec = (*sample_count / s_rate) % 60;
-min = (*sample_count / s_rate) / 60;
+sec = ((s_size/4) * (*sample_count) / s_rate) % 60;
+min = ((s_size/4) * (*sample_count) / s_rate) / 60;
 
-int max_sec = (*sample_count / s_rate) % 60;
-int max_min = (*sample_count / s_rate) / 60;
+int max_sec =  (samplecount/4 / s_rate) % 60;
+int max_min =  (samplecount/4 / s_rate) / 60;
 
-progress = (50 * *sample_count) / max_sample;
+//progress = (50 * *sample_count) / max_sample;
 char progress_buffer[50];
 
 
-printf("%c[2K\r %d:%d[%s]%d:%d", 27, min, sec, progress_buffer, max_min, max_sec);
+printf("%c[2K\r %02d:%02d[%s]%02d:%02d", 27, min, sec, progress_buffer, max_min , max_sec);
 fflush(stdout);
 
+return 0;
 }
 
 int main(int argc, char * argv []) {
@@ -43,12 +43,12 @@ int main(int argc, char * argv []) {
     int s_rate;	
     int s_size;
     int channel;
-    int data_size;
+    int samplecount;
 
     /* Création du file descriptor de notre fichier audio*/
-    int file_fd = aud_readinit(track,&s_rate,&s_size,&channel,&data_size);
+    int file_fd = aud_readinit(track,&s_rate,&s_size,&channel,&samplecount);
 
-    printf("%d", data_size);
+    printf("%d", samplecount);
 
     if(file_fd == -1 ) {
 	fprintf(stderr,"Can't open the file");
@@ -80,14 +80,15 @@ int main(int argc, char * argv []) {
     char buffer[s_size];
     int count = 0;
     int sample = 0;
+
     do
     {
 	read_value = read(file_fd, buffer,s_size);
 	write(device_fd, buffer, s_size);
 	sample++;
 
-	if(count >= s_rate ) {
-	    print_playbar(&sample, s_rate, s_size, data_size);
+	if(count >= s_rate / 4 ) {
+	    print_playbar(&sample, s_rate, s_size, samplecount);
 	    count = 0;
 	}
 	else count++;
