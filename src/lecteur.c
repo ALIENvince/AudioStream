@@ -19,16 +19,17 @@ int print_playbar(int* sample_count, int s_rate, int s_size, char* buffer, int d
     int sec = 0;
     int min = 0;
     int progress = 0;
-    int max_sample = data_len / s_size 
+    int max_sample = data_len / s_size;
 
-    sec = (*sample_count / *s_rate) % 60
-    min = (*sample_count / *s_rate) / 60
+    sec = (*sample_count / *s_rate) % 60;
+    min = (*sample_count / *s_rate) / 60;
 
-    int max_sec = (*sample_count / *s_rate) % 60
-    int max_min = (*sample_count / *s_rate) / 60
+    int max_sec = (*sample_count / *s_rate) % 60;
+    int max_min = (*sample_count / *s_rate) / 60;
 
-    progress = (50 * *sample_count) / max_sample
-    progress_buffer[50];
+    progress = (50 * *sample_count) / max_sample;
+    char progress_buffer[50];
+
 
     printf("\b  %c[2K\r %d:%d[%s]%d:%d \n", 27, sec, min, buffer, max_sec, max_min);
     fflush(stdout);
