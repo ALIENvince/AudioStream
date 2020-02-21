@@ -11,7 +11,7 @@ la frequence d'echantillonage par 2, la musique va etre ralenti.
 
 Question 2: Que se passe-t-il si on declare a la sortie audio que le fichier
 est mono ?
-Le son est joue 2 fois plus lentement et est dephase.
+Le son est joue 2 fois plus lentement et est déphasé.
 
 Question 3: Le son est sature et inaudible. On lit des samples de 8 bits
 encodes sur 16 bits le lecteur lis des valeurs qui ne representent pas le son
