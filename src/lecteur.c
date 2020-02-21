@@ -14,7 +14,7 @@ int main(int argc, char * argv []) {
     int channel;
     int data_size;
 
-    /* Création du descripteur de fichier de lecture*/
+    /* Création du file descriptor de notre fichier audio*/
     int file_fd = aud_readinit(track,&s_rate,&s_size,&channel,&data_size);
 
     printf("%d", data_size);
@@ -34,7 +34,7 @@ int main(int argc, char * argv []) {
     /*-------------------------------------------*/
 
 
-    /* Création du descripteur de fichier d'ouverture*/
+    /* Création du file descriptor du lecteur audio*/
     int device_fd = aud_writeinit(s_rate,s_size,channel);
 
     if(device_fd == -1) {
@@ -45,7 +45,7 @@ int main(int argc, char * argv []) {
     /* Boucle de lecture et ecriture*/
     ssize_t read_value;
     //ssize_t write_value;
-
+	
     char buffer[s_size];
     int count = 0;
     //threshold pour avoir 50 barres a la fin de la piste
