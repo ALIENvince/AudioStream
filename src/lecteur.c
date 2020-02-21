@@ -5,6 +5,36 @@
 #include <string.h>
 #include "../include/audio.h"
 
+int print_playbar(int* sample_count, int s_rate, int s_size, char* buffer, int data_len);
+
+/**
+ * Requires char buffer of size 60 minimum
+ * prints the playbar status of the track
+ * including :
+ * current timer
+ * end time
+ * progress bar
+ */
+int print_playbar(int* sample_count, int s_rate, int s_size, char* buffer, int data_len) {
+    int sec = 0;
+    int min = 0;
+    int progress = 0;
+    int max_sample = data_len / s_size 
+
+    sec = (*sample_count / *s_rate) % 60
+    min = (*sample_count / *s_rate) / 60
+
+    int max_sec = (*sample_count / *s_rate) % 60
+    int max_min = (*sample_count / *s_rate) / 60
+
+    progress = (50 * *sample_count) / max_sample
+    progress_buffer[50];
+
+    printf("\b  %c[2K\r %d:%d[%s]%d:%d \n", 27, sec, min, buffer, max_sec, max_min);
+    fflush(stdout);
+
+}
+
 int main(int argc, char * argv []) {
 
     char * track = argv[1]; 
@@ -49,7 +79,9 @@ int main(int argc, char * argv []) {
     char buffer[s_size];
     int count = 0;
     //threshold pour avoir 50 barres a la fin de la piste
-    int threshold = data_size / 200 / s_size / 8;
+    int threshold = data_size * 200 / s_size / 8;
+    int min = 0;
+    int sec = 0;
     char playbar[256] = "";
 
     do
@@ -58,7 +90,9 @@ int main(int argc, char * argv []) {
 	write(device_fd, buffer, s_size);
 
 
-	if(count >= threshold) {
+	if(count >= s_rate ) {
+	    sec++;
+	    print_playbar();
 	    //strcat(playbar, "|");
 	    //printf("%c[2K\r", 27);
 	    //printf("%s", playbar);
