@@ -21,18 +21,18 @@ int print_playbar(int* sample_count, int s_rate, int s_size, char* buffer, int d
     int progress = 0;
     int max_sample = data_len / s_size;
 
-    sec = (*sample_count / *s_rate) % 60;
-    min = (*sample_count / *s_rate) / 60;
+sec = (*sample_count / s_rate) % 60;
+min = (*sample_count / s_rate) / 60;
 
-    int max_sec = (*sample_count / *s_rate) % 60;
-    int max_min = (*sample_count / *s_rate) / 60;
+int max_sec = (*sample_count / s_rate) % 60;
+int max_min = (*sample_count / s_rate) / 60;
 
-    progress = (50 * *sample_count) / max_sample;
-    char progress_buffer[50];
+progress = (50 * *sample_count) / max_sample;
+char progress_buffer[50];
 
 
-    printf("\b  %c[2K\r %d:%d[%s]%d:%d \n", 27, sec, min, buffer, max_sec, max_min);
-    fflush(stdout);
+printf("\b%c[2K\r %d:%d[%s]%d:%d", 27, sec, min, buffer, max_sec, max_min);
+fflush(stdout);
 
 }
 
@@ -79,24 +79,15 @@ int main(int argc, char * argv []) {
 
     char buffer[s_size];
     int count = 0;
-    //threshold pour avoir 50 barres a la fin de la piste
-    int threshold = data_size * 200 / s_size / 8;
-    int min = 0;
-    int sec = 0;
-    char playbar[256] = "";
-
+    int sample = 0;
     do
     {
 	read_value = read(file_fd, buffer,s_size);
 	write(device_fd, buffer, s_size);
-
+	sample++;
 
 	if(count >= s_rate ) {
-	    sec++;
-	    print_playbar();
-	    //strcat(playbar, "|");
-	    //printf("%c[2K\r", 27);
-	    //printf("%s", playbar);
+	    print_playbar(&sample, s_rate, s_size, playbar, data_size);
 	    count = 0;
 	}
 	else count++;
