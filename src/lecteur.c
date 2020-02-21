@@ -5,7 +5,7 @@
 #include <string.h>
 #include "../include/audio.h"
 
-int print_playbar(int* sample_count, int s_rate, int s_size, char* buffer, int data_len);
+int print_playbar(int* sample_count, int s_rate, int s_size, int data_len);
 
 /**
  * Requires char buffer of size 60 minimum
@@ -15,7 +15,7 @@ int print_playbar(int* sample_count, int s_rate, int s_size, char* buffer, int d
  * end time
  * progress bar
  */
-int print_playbar(int* sample_count, int s_rate, int s_size, char* buffer, int data_len) {
+int print_playbar(int* sample_count, int s_rate, int s_size, int data_len) {
     int sec = 0;
     int min = 0;
     int progress = 0;
@@ -31,7 +31,7 @@ progress = (50 * *sample_count) / max_sample;
 char progress_buffer[50];
 
 
-printf("\b%c[2K\r %d:%d[%s]%d:%d", 27, sec, min, buffer, max_sec, max_min);
+printf("%c[2K\r %d:%d[%s]%d:%d", 27, min, sec, progress_buffer, max_min, max_sec);
 fflush(stdout);
 
 }
@@ -87,7 +87,7 @@ int main(int argc, char * argv []) {
 	sample++;
 
 	if(count >= s_rate ) {
-	    print_playbar(&sample, s_rate, s_size, playbar, data_size);
+	    print_playbar(&sample, s_rate, s_size, data_size);
 	    count = 0;
 	}
 	else count++;
