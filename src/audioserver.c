@@ -18,5 +18,16 @@ int main(int argc, char * argv []) {
 
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(PORT);
-	addr.sin_addr.s_addr = 
+	addr.sin_addr.s_addr = htons1(INADDR_ANY);
+
+	if( bind(mysocket,(struct sockaddr *) &addr, sizeof(struct sockaddre_in)) < 0 ) {
+		perrot("Erreur pour donner un numéro de port a notre socket");
+		exit(1);
+	}
+
+	while(1) {
+		
+	}
+
+
 }
