@@ -2,40 +2,47 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <arpa/inet.h>
 
 #define PORT 1234
 
-
-
 int main(int argc, char * argv [] ) {
-	int sock;
-	struct sockaddr_in dest;
-	char buf[BUFSIZE];
+    int fd;
+    int err;
 
-	if(sock=socket(AF_INET,SOCK_DGRAM,0) < 0 ) {
-		perror("Creation Socket Error");
-	}
+    socklen_t rclen, flen;
+    struct sockaddr_in addr;
 
-	dest.sin_family = AF_INET;
-	dest.sin_post = htons(PORT);
-	dest.sin_addr = inet_addr("127.0.0.1");
+    fd = socket(AF_INET, SOCK_DGRAM, 0);
+    if(fd < 0) {
+	perror("Socket Creation Error");
+	exit(1);
+    }
 
-	while(1) {
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(PORT);
+    const char* dotted = "127.0.0.1";
+    addr.sin_addr.s_addr = inet_addr(*dotted);
 
+    char msg[128] = "Hello !";
+    char resp[128];
 
-		//sendto
-		int err = sendto(sock,buf,strlen(buf)+1,0,(struct sockaddr*) &dest, sizeof(struct
-					sockadrr_in));
-		if(err<0) {
-			perror("Sending Datagramme Error");
-			exit(1);
-		}
-		printf("%d",err);
-		//recvfrom
-		int len = recvfrom(sock,buf,strlen(buf)+1,0,
-				//close
-				}
+    err = sendto(fd, msg, strlen(msg)+1, 0, (struct sockaddr*) &addr, sizeof(struct sockaddr_in));
 
+    if(err < 0 ) {
+	perror("send Error");
+	exit(4);
+    }
 
+    flen = sizeof(struct sockaddr_in);
+    rclen = recvfrom(fd, msg, sizeof(msg), 0, (struct sockaddr*) &addr, &flen);
+
+    if(rclen < 0) {
+	perror("recv Error");
+	exit(3);
+    }
+    printf("%d Recieved from %s:%d: %s", rclen, inet_ntoa(addr.sin_addr), ntohs(addr.sin_port), msg);
+
+    close(fd);
 
 }

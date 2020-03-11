@@ -27,4 +27,5 @@ obj/server.o: src/audioserver.c include/audioserver.h include/audio.h
 
 clean:
 	rm -rf obj/*.o
-	rm ./lecteur
+	rm ./audioserver
+	rm ./audioclient
